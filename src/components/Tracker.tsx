@@ -1,17 +1,19 @@
 import clsx from 'clsx';
 import { addDays, differenceInCalendarDays, format } from 'date-fns';
 import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useLocalStorage } from 'usehooks-ts';
 import type { Configuration } from './TrackerConfiguration';
 import { DAYS_OF_WEEK } from './TrackerConfiguration';
 import { CONFIGURATION_KEY } from './TrackerConfiguration';
 
-export const Tracker = ({ savedConfiguration }: { savedConfiguration: Configuration | null }) => {
-  const [cookieConfiguration] = useCookies([CONFIGURATION_KEY]);
+export const Tracker = () => {
+  const [configuration] = useLocalStorage<Configuration | null>(CONFIGURATION_KEY, null);
   const [dayOfLastPayment, setDayOfLastPayment] = useState<string | null>(null);
   const [payedTrainings, setPayedTrainings] = useState<string[]>([]);
 
-  const configuration = savedConfiguration || (cookieConfiguration[CONFIGURATION_KEY] as Configuration);
+  if (!configuration) {
+    return null;
+  }
 
   const onJustPaidClick = () => {
     const date = new Date();

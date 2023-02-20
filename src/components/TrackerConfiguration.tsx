@@ -1,7 +1,7 @@
 import type { FC, ChangeEventHandler } from 'react';
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { useCookies } from 'react-cookie';
+import { useLocalStorage } from 'usehooks-ts';
 
 export const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'] as const;
 
@@ -98,10 +98,9 @@ const PossiblePayment: FC<PossiblePaymentProps> = ({
 };
 
 export const TrackerConfiguration: FC<{
-  savedConfiguration: Configuration | null;
   onConfigurationSave: () => void;
-}> = ({ savedConfiguration, onConfigurationSave }) => {
-  const [, setCookie] = useCookies([CONFIGURATION_KEY]);
+}> = ({ onConfigurationSave }) => {
+  const [savedConfiguration, setConfiguration] = useLocalStorage<Configuration | null>(CONFIGURATION_KEY, null);
 
   const [selectedDays, setSelectedDays] = useState<Record<DayOfWeek, boolean>>(
     savedConfiguration?.selectedDays ??
@@ -153,14 +152,11 @@ export const TrackerConfiguration: FC<{
     };
 
   const onSaveConfigurationClick = () => {
-    setCookie(
-      CONFIGURATION_KEY,
-      JSON.stringify({
-        selectedDays,
-        possiblePayments,
-        totalPrice,
-      })
-    );
+    setConfiguration({
+      selectedDays,
+      possiblePayments,
+      totalPrice,
+    });
     onConfigurationSave();
   };
 
