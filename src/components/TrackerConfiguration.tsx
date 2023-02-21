@@ -1,5 +1,5 @@
 import type { FC, ChangeEventHandler } from 'react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 import { useLocalStorage } from 'usehooks-ts';
 
