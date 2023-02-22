@@ -179,15 +179,21 @@ export const Tracker: FC<{ onEditConfiguration: () => void }> = ({ onEditConfigu
             }
           )}
       </div>
-      <div className="flex gap-4">
-        <input
-          type="date"
-          onChange={event => {
-            setDayOfLastPayment(event.target.value);
-          }}
-          value={dayOfLastPayment || new Date().toString()}
-          className="cursor-pointer rounded-lg bg-cyan-800 p-3 text-2xl text-white hover:bg-emerald-800"
-        />
+      <div className="flex flex-col gap-4">
+        <fieldset className="flex items-center gap-4 text-white">
+          <label htmlFor="day-of-lat-payment" className="text-2xl">
+            Day of last payment:
+          </label>
+          <input
+            type="date"
+            onChange={event => {
+              setDayOfLastPayment(event.target.value);
+            }}
+            id="day-of-lat-payment"
+            value={dayOfLastPayment || new Date().toString()}
+            className="cursor-pointer rounded-lg bg-cyan-800 p-3 text-2xl text-white hover:bg-emerald-800"
+          />
+        </fieldset>
         <button className="btn" onClick={onEditConfiguration}>
           Edit configuration
         </button>
