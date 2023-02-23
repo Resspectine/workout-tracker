@@ -4,6 +4,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocalStorage } from 'usehooks-ts';
+import { ButtonWithConfirmation } from '../ButtonWithConfirmation';
 import type { Configuration } from '../TrackerConfiguration';
 import { DAYS_OF_WEEK } from '../TrackerConfiguration';
 import { CONFIGURATION_KEY } from '../TrackerConfiguration';
@@ -57,7 +58,7 @@ const Modal: FC<
 };
 
 export const Tracker: FC<{ onEditConfiguration: () => void }> = ({ onEditConfiguration }) => {
-  const [configuration] = useLocalStorage<Configuration | null>(CONFIGURATION_KEY, null);
+  const [configuration, setConfiguration] = useLocalStorage<Configuration | null>(CONFIGURATION_KEY, null);
   const [payedTrainings, setPayedTrainings] = useLocalStorage<PaymentForDay[] | null>(PAYED_DAYS_KEY, null);
   const [dayOfLastPayment, setDayOfLastPayment] = useLocalStorage<string | null>(DAY_OF_LAST_PAYMENT, null);
   const [activeDay, setActiveDay] = useState<string | null>(null);
@@ -65,6 +66,13 @@ export const Tracker: FC<{ onEditConfiguration: () => void }> = ({ onEditConfigu
   if (!configuration) {
     return null;
   }
+
+  const resetConfiguration = () => {
+    setConfiguration(null);
+    setPayedTrainings(null);
+    setDayOfLastPayment(null);
+    onEditConfiguration();
+  };
 
   const onPayForDay = (dayPayment: PaymentForDay) => {
     setPayedTrainings(oldPayedTrainings => [...(oldPayedTrainings || []), dayPayment]);
@@ -197,6 +205,9 @@ export const Tracker: FC<{ onEditConfiguration: () => void }> = ({ onEditConfigu
         <button className="btn" onClick={onEditConfiguration}>
           Edit configuration
         </button>
+        <ButtonWithConfirmation className="btn bg-red-600 hover:bg-red-700" onClick={resetConfiguration}>
+          Reset configuration
+        </ButtonWithConfirmation>
       </div>
     </div>
   );
