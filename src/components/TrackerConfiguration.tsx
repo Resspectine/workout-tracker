@@ -41,8 +41,8 @@ const PossiblePayment: FC<PossiblePaymentProps> = ({
 
   return (
     <>
-      <fieldset className="grid grid-cols-[minmax(0,_1fr)_32px_32px] gap-4 text-white">
-        <div className="flex items-center gap-4">
+      <fieldset className="flex flex-wrap gap-4 text-white sm:grid sm:grid-cols-[minmax(0,_1fr)_32px_32px]">
+        <div className="flex flex-wrap items-center gap-4">
           <input
             id="amount-of-possible-costs"
             type="text"
@@ -162,8 +162,8 @@ export const TrackerConfiguration: FC<{
 
   return (
     <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-      <p className="text-4xl text-white">Select days of your trainings:</p>
-      <div className="flex gap-2 ">
+      <p className="text-center text-4xl text-white">Select days of your trainings:</p>
+      <div className="flex flex-wrap justify-center gap-2">
         {DAYS_OF_WEEK.map(day => (
           <fieldset key={day} className="flex">
             <input
@@ -192,7 +192,7 @@ export const TrackerConfiguration: FC<{
         ))}
       </div>
       <fieldset className="flex items-center gap-4">
-        <label htmlFor="total-price" className="text-4xl text-white">
+        <label htmlFor="total-price" className="text-2xl text-white sm:text-4xl">
           Add total price:
         </label>
         <input
@@ -203,7 +203,7 @@ export const TrackerConfiguration: FC<{
           className="h-10 w-20 rounded-lg border border-cyan-500 bg-transparent p-2 text-right text-lg text-white"
         />
       </fieldset>
-      <p className="text-4xl text-white">Add possible payments:</p>
+      <p className="text-2xl text-white sm:text-4xl">Add possible payments:</p>
       <div className="flex flex-col gap-4">
         {possiblePayments.map((payment, index) => (
           <PossiblePayment

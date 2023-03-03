@@ -46,7 +46,7 @@ const Home: NextPage = () => {
             </>
           ) : (
             <>
-              <h1 className="text-5xl font-extrabold text-white sm:text-[4rem]">Track yor paid workouts</h1>
+              <h1 className="text-center text-5xl font-extrabold text-white sm:text-[4rem]">Track yor paid workouts</h1>
               {isConfigured ? (
                 <Tracker onEditConfiguration={() => setIsConfigured(false)} />
               ) : (

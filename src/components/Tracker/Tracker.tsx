@@ -144,7 +144,7 @@ export const Tracker: FC<{ onEditConfiguration: () => void }> = ({ onEditConfigu
             )) ||
             0)}
       </p>
-      <p className="text-4xl text-white">Your training days since last payment:</p>
+      <p className="text-center text-4xl text-white">Your training days since last payment:</p>
       <div className="flex flex-wrap gap-4">
         {daysWithPayment &&
           daysWithPayment?.map(
